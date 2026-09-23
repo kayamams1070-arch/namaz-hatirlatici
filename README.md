@@ -12,7 +12,7 @@ Touchez le fichier `namaz-hatirlatici.apk` en bas de la page.
 
 ## iPhone ve tarayıcı · iPhone et navigateur
 
-**https://namaz.kayamams1070.workers.dev**
+**https://namaz.vakit.workers.dev**
 
 - iPhone (iOS 16.4+): bağlantıyı Safari'de açın › Paylaş › « Ana Ekrana Ekle ». Sonra ana ekrandaki Namaz simgesinden açın ve bildirimlere izin verin.
 - iPhone (iOS 16.4+) : ouvrez le lien dans Safari › Partager › « Sur l'écran d'accueil ». Ouvrez ensuite l'appli depuis l'icône Namaz et autorisez les notifications.
@@ -40,5 +40,5 @@ Touchez le fichier `namaz-hatirlatici.apk` en bas de la page.
 
 ---
 
-Uygulama hesap istemez, reklam içermez, kişisel veri toplamaz. Sadece Android (iPhone yok).
-Pas de compte, pas de publicité, aucune donnée collectée. Android uniquement (pas d'iPhone).
+Uygulama hesap istemez, reklam içermez, kişisel veri toplamaz. Takip ve ayarlarınız sadece kendi telefonunuzda kalır.
+Pas de compte, pas de publicité, aucune donnée collectée. Votre suivi et vos réglages restent uniquement sur votre téléphone.
