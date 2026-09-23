@@ -10,6 +10,14 @@ Rappels des heures de prière pour la Belgique (Android). Horaires : Diyanet / B
 Sayfanın altındaki `namaz-hatirlatici.apk` dosyasına dokunun.
 Touchez le fichier `namaz-hatirlatici.apk` en bas de la page.
 
+## iPhone ve tarayıcı · iPhone et navigateur
+
+**https://namaz.kayamams1070.workers.dev**
+
+- iPhone (iOS 16.4+): bağlantıyı Safari'de açın › Paylaş › « Ana Ekrana Ekle ». Sonra ana ekrandaki Namaz simgesinden açın ve bildirimlere izin verin.
+- iPhone (iOS 16.4+) : ouvrez le lien dans Safari › Partager › « Sur l'écran d'accueil ». Ouvrez ensuite l'appli depuis l'icône Namaz et autorisez les notifications.
+- Android'de de çalışır (Chrome). Widget için yukarıdaki APK'yı kullanın. · Marche aussi sur Android (Chrome). Pour le widget, utilisez l'APK ci-dessus.
+
 ## Kurulum (Türkçe)
 
 1. Telefonda yukarıdaki bağlantıyı açın ve `namaz-hatirlatici.apk` dosyasını indirin.
