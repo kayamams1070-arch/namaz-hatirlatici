@@ -35,10 +35,14 @@ jobs:
           pip install -q openai-whisper numpy
       - name: Contrôle
         run: |
-          node scripts/voice-pack/texts.js > /tmp/texts.json
-          node scripts/voice-pack/texts_dua.js ar.husary 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
           mkdir -p /tmp/out
-          python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md ${{ inputs.filtre }} 2>&1 | tail -400 > /tmp/out/journal.txt
+          set +e
+          ( node scripts/voice-pack/texts.js > /tmp/texts.json
+            node scripts/voice-pack/texts_dua.js ar.husary 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
+            ls -la /tmp/texts.json /tmp/dua.json
+            python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md "${{ inputs.filtre }}" ) > /tmp/out/journal-complet.txt 2>&1
+          echo "code $?" >> /tmp/out/journal-complet.txt
+          tail -400 /tmp/out/journal-complet.txt > /tmp/out/journal.txt; rm /tmp/out/journal-complet.txt
       - name: Rapport (brouillon de version)
         if: always()
         env:
