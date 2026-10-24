@@ -7,6 +7,9 @@ on:
       ref:
         description: "Branche ou commit du dépôt privé"
         default: main
+      filtre:
+        description: "Ne contrôler que les clips dont la clé correspond (expression régulière), vide = tout"
+        default: ''
 permissions:
   contents: write
 jobs:
@@ -35,7 +38,7 @@ jobs:
           node scripts/voice-pack/texts.js > /tmp/texts.json
           node scripts/voice-pack/texts_dua.js ar.husary 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
           mkdir -p /tmp/out
-          python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md 2>&1 | tail -400 > /tmp/out/journal.txt
+          python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md ${{ inputs.filtre }} 2>&1 | tail -400 > /tmp/out/journal.txt
       - name: Rapport (brouillon de version)
         if: always()
         env:
