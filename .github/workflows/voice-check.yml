@@ -1,0 +1,46 @@
+# Contrôle de la voix du guide à toutes les vitesses (Whisper), à partir du code du dépôt privé (clé NAMAZ_SRC,
+# lecture seule). Le rapport est joint à un brouillon de version (non public) « controle-vitesses-N ».
+name: Contrôle des vitesses de lecture
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branche ou commit du dépôt privé"
+        default: main
+permissions:
+  contents: write
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: kayamams1070-arch/namaz-rappel
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.NAMAZ_SRC }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Outils
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q openai-whisper numpy
+      - name: Contrôle
+        run: |
+          node scripts/voice-pack/texts.js > /tmp/texts.json
+          node scripts/voice-pack/texts_dua.js ar.husary 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
+          mkdir -p /tmp/out
+          python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md 2>&1 | tail -400 > /tmp/out/journal.txt
+      - name: Rapport (brouillon de version)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls /tmp/out || mkdir -p /tmp/out
+          gh release create "controle-vitesses-${{ github.run_number }}" /tmp/out/* --repo "$GITHUB_REPOSITORY" --draft \
+            --title "Contrôle des vitesses ${{ github.run_number }}" --notes "Rapport interne (brouillon, non publié)."
