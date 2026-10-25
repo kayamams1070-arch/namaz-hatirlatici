@@ -7,6 +7,12 @@ on:
       ref:
         description: "Branche ou commit du dépôt privé"
         default: main
+      recitateur:
+        description: "Récitateur des sourates (cdn.islamic.network)"
+        default: ar.husary
+      quran_max:
+        description: "Plafond de vitesse des sourates à essayer"
+        default: '1.5'
       filtre:
         description: "Ne contrôler que les clips dont la clé correspond (expression régulière), vide = tout"
         default: ''
@@ -34,11 +40,13 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           pip install -q openai-whisper numpy
       - name: Contrôle
+        env:
+          QURAN_MAX: ${{ inputs.quran_max }}
         run: |
           mkdir -p /tmp/out
           set +e
           ( node scripts/voice-pack/texts.js > /tmp/texts.json
-            node scripts/voice-pack/texts_dua.js ar.husary 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
+            node scripts/voice-pack/texts_dua.js ${{ inputs.recitateur }} 1,105,106,107,108,109,110,111,112,113,114,kursi > /tmp/dua.json
             ls -la /tmp/texts.json /tmp/dua.json
             python scripts/voice-pack/check_app.py /tmp/texts.json /tmp/dua.json www/voice /tmp/out/rapport-vitesses.md "${{ inputs.filtre }}" ) > /tmp/out/journal-complet.txt 2>&1
           echo "code $?" >> /tmp/out/journal-complet.txt
